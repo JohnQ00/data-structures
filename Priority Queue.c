@@ -14,7 +14,7 @@ bool is_empty(p_q *pq);
 
 list *front(p_q *pq);
 int max(p_q *pq);
-void print_priority_queue(p_q *pq);
+void print_priority_queue(p_q *pq,int num, int counter);
 void enqueue(p_q *pq, int value, int priority);
 
 void dequeue(p_q *pq);
@@ -28,23 +28,32 @@ int main(void)
   char op1,op;
   int op2,op3,op4,priority,runs,i = 0;
 
-  printf("Insira o numero de itens que voce deseja adicionar: ");
-  scanf("%d", &runs);
+  //printf("Insira o numero de itens que voce deseja adicionar: ");
+  //scanf("%d", &runs);
+  int j,chosen,counter = 0;
 
-  while(i < runs)
+    printf("Numero da busca: \n");
+    scanf("%d", &chosen);
+  	for(j = 0;j < 10;j++)
+  	{
+  		enqueue(pq,j,j);
+  	}
+
+
+  /*while(i < runs)
   {
   	printf("Insira o valor: ");
   	scanf("%d", &op2);
   	printf("Insira a prioridade desse valor: ");
   	scanf("%d", &priority);
 
-  	enqueue(pq,op2,priority);
+
   	i++;
-  }
-  print_priority_queue(
-  pq);
-  /*
-  do
+  }*/
+
+  print_priority_queue(pq,chosen,counter);
+
+  /*do
   {
   	scanf("%c", &op1); op = getchar();
   switch (op1)
@@ -97,14 +106,20 @@ list *front(p_q *pq){return (pq->head);}
 
 int max(p_q *pq){return(pq->head->value);}
 
-void print_priority_queue(p_q *pq)
+void print_priority_queue(p_q *pq, int num, int counter)
 {
   list *current = pq->head;
   while(current->next != NULL)
   {
-    printf("%d ", current->value);
+    	if(current->value == num)
+			{
+      		printf("Numero de iteracoes: %d\n", counter);
+      		printf("%d ", current->value);
+      		return;
+			}
+    counter++;
     current = current->next;
-  } printf("%d\n", current->value);
+  }
 }
 
 void enqueue(p_q *pq, int value, int priority)
@@ -140,3 +155,4 @@ void destroy(p_q *pq)
   while(!is_empty(pq)){dequeue(pq);}
   free(pq);
 }
+
